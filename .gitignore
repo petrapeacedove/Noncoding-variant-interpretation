@@ -15,3 +15,17 @@ Thumbs.db
 
 # Environment
 .env
+
+# Large reference/annotation files (re-downloadable)
+hg38.fa
+hg38.fa.gz
+hg38.fa.fai
+phyloP.bw
+phastCons.bw
+genes_to_disease.txt
+clinvar.vcf
+clinvar.vcf.gz
+
+# Large intermediate datasets (local backups exist)
+balanced_with_features.csv
+snv_with_conservation.csv
