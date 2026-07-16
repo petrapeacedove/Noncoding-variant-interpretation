@@ -1,0 +1,17 @@
+# Raw data (too large / re-downloadable)
+data/*.vcf
+data/*.vcf.gz
+data/*.csv
+!data/sample_*.csv
+
+# Jupyter/Colab junk
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
