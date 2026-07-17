@@ -10,8 +10,9 @@ Motivation / Background
 
 Approximately 98% of the human genome is non-coding, yet the majority of variant interpretation tools and clinical pipelines remain optimized for coding regions, where the effect of a mutation on protein structure is relatively direct to assess. Non-coding variants can disrupt gene regulation — altering promoter activity, transcription factor binding, or transcript stability — without changing the protein sequence itself. This regulatory disruption can be equally pathogenic, particularly in Mendelian and rare diseases, but remains substantially harder to interpret. A large fraction of non-coding ClinVar submissions carry "Uncertain Significance" labels, reflecting this diagnostic gap. This project builds a lightweight, interpretable framework to help close that gap using biologically-grounded features rather than black-box sequence modeling alone.
 
-Workflow
+## Workflow
 
+```mermaid
 flowchart TD
     A[ClinVar VCF - GRCh38] --> B[Filter: non-coding consequence + confident label]
     B --> C[Filter: SNVs only, indels excluded]
@@ -23,9 +24,9 @@ flowchart TD
     E1 --> F[Train/test split - 80/20, stratified]
     E2 --> F
     E3 --> F
-    F --> G[Models: Logistic Regression | Random Forest]
+    F --> G[Models: Logistic Regression - Random Forest]
     G --> H[Evaluation: ROC-AUC, McNemar's test, SHAP interpretability]
-
+```
 Dataset & Methods
 
 Data source: ClinVar VCF (GRCh38 build), NCBI, accessed July 2026.
