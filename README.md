@@ -105,8 +105,9 @@ Pre-trained models are available in models/ (logistic_regression_model.pkl, rand
 
 Dependencies: cyvcf2, pyBigWig, pyfaidx, pyjaspar, biopython, scikit-learn, shap, pandas, numpy, tqdm — all installable via pip install (see first cells of the notebook).
 
-Repo Structure
+## Repo Structure
 
+```
 noncoding-variant-interpretation/
 ├── README.md
 ├── notebooks/
@@ -120,6 +121,7 @@ noncoding-variant-interpretation/
 ├── results/
 │   └── model_comparison.json
 └── .gitignore
+```
 
 Future Work
 
