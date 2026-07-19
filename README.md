@@ -27,26 +27,28 @@ flowchart TD
     F --> G[Models: Logistic Regression - Random Forest]
     G --> H[Evaluation: ROC-AUC, McNemar's test, SHAP interpretability]
 ```
-Dataset & Methods
+## Dataset & Methods
 
-Data source: ClinVar VCF (GRCh38 build), NCBI, accessed July 2026.
+**Data source:** ClinVar VCF (GRCh38 build), NCBI, accessed July 2026.
 
-Filtering pipeline:
+**Filtering pipeline:**
 
-StepFilterVariants remaining1Non-coding consequence + confident clinical label (Pathogenic/Likely Pathogenic vs Benign/Likely Benign)643,4262SNVs only (indels excluded)558,2883Drop missing conservation scores558,2534Balanced via undersampling (1:1 pathogenic:benign)44,748
+| Step | Filter | Variants remaining |
+|---|---|---|
+| 1 | Non-coding consequence + confident clinical label (Pathogenic/Likely Pathogenic vs Benign/Likely Benign) | 643,426 |
+| 2 | SNVs only (indels excluded) | 558,288 |
+| 3 | Drop missing conservation scores | 558,253 |
+| 4 | Balanced via undersampling (1:1 pathogenic:benign) | 44,748 |
 
-Class imbalance note: restricting to SNVs increased the benign:pathogenic ratio from ~13:1 to ~24:1, since indels are disproportionately pathogenic in non-coding regions — a documented tradeoff of this scoping decision.
+**Class imbalance note:** restricting to SNVs increased the benign:pathogenic ratio from ~13:1 to ~24:1, since indels are disproportionately pathogenic in non-coding regions — a documented tradeoff of this scoping decision.
 
-Features engineered:
+**Features engineered:**
+- `phyloP` — per-base evolutionary conservation score (UCSC 100-way vertebrate alignment)
+- `phastCons` — per-base conservation probability (UCSC 100-way vertebrate alignment)
+- `motif_disruption` — maximum predicted transcription factor binding disruption across a 10-TF shortlist (SP1, CTCF, GATA1, NFKB1, TP53, MYC, STAT3, YY1, EGR1, FOXA1), scored via simplified PWM matching against JASPAR 2024 motifs
+- `is_mendelian_gene` — binary flag for genes with curated Mendelian disease associations (HPO `genes_to_disease.txt`); 94% of the balanced dataset overlapped this list
 
-
-phyloP — per-base evolutionary conservation score (UCSC 100-way vertebrate alignment)
-phastCons — per-base conservation probability (UCSC 100-way vertebrate alignment)
-motif_disruption — maximum predicted transcription factor binding disruption across a 10-TF shortlist (SP1, CTCF, GATA1, NFKB1, TP53, MYC, STAT3, YY1, EGR1, FOXA1), scored via simplified PWM matching against JASPAR 2024 motifs
-is_mendelian_gene — binary flag for genes with curated Mendelian disease associations (HPO genes_to_disease.txt); 94% of the balanced dataset overlapped this list
-
-
-Models: Logistic Regression (scaled features) and Random Forest (200 trees, max depth 10), 80/20 stratified train-test split.
+**Models:** Logistic Regression (scaled features) and Random Forest (200 trees, max depth 10), 80/20 stratified train-test split.
 
 ## Results
 
