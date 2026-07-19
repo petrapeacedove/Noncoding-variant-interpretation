@@ -1,11 +1,12 @@
-{
-  "logistic_regression": {
-    "accuracy": 0.86,
-    "roc_auc": 0.916
-  },
-  "random_forest": {
-    "accuracy": 0.86,
-    "roc_auc": 0.918
-  },
-  "mcnemar_pvalue": 0.1923
-}
+## Results
+
+| Model | Accuracy | ROC-AUC | Confusion Matrix (TN, FP / FN, TP) |
+|---|---|---|---|
+| Logistic Regression | 0.86 | 0.916 | [3998, 477 / 802, 3673] |
+| Random Forest | 0.86 | 0.918 | [4013, 462 / 835, 3640] |
+
+McNemar's test comparing the two models: χ² = 1.70, p = 0.192 (not statistically significant) — indicating comparable performance despite Random Forest's added complexity. Logistic Regression is preferred as the primary model for its interpretability.
+
+**Feature importance (consistent across both models):** `phyloP` >> `phastCons` > `is_mendelian_gene` ≈ `motif_disruption`.
+
+**Note on false negatives:** both models missed ~18% of true pathogenic variants (802–835 false negatives out of 4,475). In a clinical screening context, this is the costlier error type — a direction for future threshold tuning is noted in Limitations.
