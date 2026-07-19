@@ -81,33 +81,26 @@ False negative rate: both models missed ~18% of true pathogenic variants in test
 ClinVar label circularity: like most ClinVar-based studies, some submitted pathogenicity labels may themselves have been informed by conservation-based tools, introducing a potential circularity that inflates apparent conservation-score performance.
 
 
-Installation / Quick-start
+## Installation / Quick-start
 
 This project was built and run entirely in Google Colab. To reproduce:
 
+1. Clone this repository:
+```bash
+   git clone https://github.com/petrapeacedove/Noncoding-variant-interpretation.git
+```
+2. Open `notebooks/noncoding_variant_pathogenicity_classifier.ipynb` in Google Colab.
+3. Run cells sequentially. The notebook will download required public data automatically:
+   - ClinVar VCF (NCBI)
+   - phyloP / phastCons conservation tracks (UCSC, ~9GB each)
+   - hg38 reference genome (UCSC, ~3GB)
+   - JASPAR 2024 motifs (via `pyjaspar`)
+   - HPO gene-disease associations
 
-Clone this repository:
+   **Note:** large reference files (~20GB total) are downloaded fresh each session and are not stored in this repository. Expect the full pipeline to take 45–60 minutes end-to-end, primarily due to conservation score lookups and motif scanning across ~44,000–558,000 variants.
+4. Pre-trained models are available in `models/` (`logistic_regression_model.pkl`, `random_forest_model.pkl`, `scaler.pkl`) if you want to skip retraining and just explore predictions.
 
-
-bash   git clone https://github.com/petrapeacedove/Noncoding-variant-interpretation.git
-
-
-Open notebooks/noncoding_variant_pathogenicity_classifier.ipynb in Google Colab.
-Run cells sequentially. The notebook will download required public data automatically:
-
-ClinVar VCF (NCBI)
-phyloP / phastCons conservation tracks (UCSC, ~9GB each)
-hg38 reference genome (UCSC, ~3GB)
-JASPAR 2024 motifs (via pyjaspar)
-HPO gene-disease associations
-
-
-Note: large reference files (~20GB total) are downloaded fresh each session and are not stored in this repository. Expect the full pipeline to take 45–60 minutes end-to-end, primarily due to conservation score lookups and motif scanning across ~44,000–558,000 variants.
-Pre-trained models are available in models/ (logistic_regression_model.pkl, random_forest_model.pkl, scaler.pkl) if you want to skip retraining and just explore predictions.
-
-
-Dependencies: cyvcf2, pyBigWig, pyfaidx, pyjaspar, biopython, scikit-learn, shap, pandas, numpy, tqdm — all installable via pip install (see first cells of the notebook).
-
+**Dependencies:** `cyvcf2`, `pyBigWig`, `pyfaidx`, `pyjaspar`, `biopython`, `scikit-learn`, `shap`, `pandas`, `numpy`, `tqdm` — all installable via `pip install` (see first cells of the notebook).
 ## Repo Structure
 
 ```
