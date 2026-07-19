@@ -48,15 +48,18 @@ is_mendelian_gene — binary flag for genes with curated Mendelian disease assoc
 
 Models: Logistic Regression (scaled features) and Random Forest (200 trees, max depth 10), 80/20 stratified train-test split.
 
-Results
+## Results
 
-ModelAccuracyROC-AUCConfusion Matrix (TN, FP / FN, TP)Logistic Regression0.860.916[3998, 477 / 802, 3673]Random Forest0.860.918[4013, 462 / 835, 3640]
+| Model | Accuracy | ROC-AUC | Confusion Matrix (TN, FP / FN, TP) |
+|---|---|---|---|
+| Logistic Regression | 0.86 | 0.916 | [3998, 477 / 802, 3673] |
+| Random Forest | 0.86 | 0.918 | [4013, 462 / 835, 3640] |
 
 McNemar's test comparing the two models: χ² = 1.70, p = 0.192 (not statistically significant) — indicating comparable performance despite Random Forest's added complexity. Logistic Regression is preferred as the primary model for its interpretability.
 
-Feature importance (consistent across both models): phyloP >> phastCons > is_mendelian_gene ≈ motif_disruption.
+**Feature importance (consistent across both models):** `phyloP` >> `phastCons` > `is_mendelian_gene` ≈ `motif_disruption`.
 
-Note on false negatives: both models missed ~18% of true pathogenic variants (802–835 false negatives out of 4,475). In a clinical screening context, this is the costlier error type — a direction for future threshold tuning is noted in Limitations.
+**Note on false negatives:** both models missed ~18% of true pathogenic variants (802–835 false negatives out of 4,475). In a clinical screening context, this is the costlier error type — a direction for future threshold tuning is noted in Limitations.
 
 Key Findings / Interpretability
 
